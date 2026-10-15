@@ -32,5 +32,13 @@ int main(int argc, char **argv) {
 
     /*Teil 2*/
 
+    double* d_ptr = nullptr;
+
+    d_ptr = new double(3.1415);
+
+    fmt::print("Dynamischer double-Wert: {}, Adresse auf dem Heap: {}\n", *d_ptr, fmt::ptr(d_ptr));
+
+    delete d_ptr;
+
     return 0; /* exit gracefully*/
 }

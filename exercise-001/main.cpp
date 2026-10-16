@@ -4,6 +4,8 @@
 #include "config.h"
 
 int globalVar = 1;
+int globalVar1 = 2;
+int globalVar3 = 67;
 
 int main(int argc, char **argv) {
 
@@ -15,6 +17,8 @@ int main(int argc, char **argv) {
     fmt::print("Hello, {}!\n", tea::PROJECT_NAME);
 
     fmt::print("The Adress of globalVar is: {}\n", fmt::ptr(&globalVar));
+    fmt::print("The Adress of globalVar is: {}\n", fmt::ptr(&globalVar1));
+    fmt::print("The Adress of globalVar is: {}\n", fmt::ptr(&globalVar3));
 
 
     return 0; /* exit gracefully*/

@@ -173,6 +173,15 @@ Dokumentieren Sie in wenigen Sätzen:
 2. Welche Ihrer Beispielvariablen in `.bss`, `.data` oder `.rodata` liegen
 3. Warum `static` für Kapselung in Modulen nützlich ist
 
+1.
+Static in einer Funktion verändert die Lebensdauer: Die Variable wird nur einmal initialisiert und behält ihren Wert zwischen den Aufrufen. Im Versuch stieg value in doSomethingStatic() von 57 auf 60, bei konstanter Adresse. Sichtbar ist sie aber nur innerhalb der Funktion. static auf Modulebene verändert die Sichtbarkeit: Die Variable bekommt internal linkage und ist nur in module.cpp erreichbar. Das zeigten der Linker-Fehler undefined reference to 'moduleValue' beim Zugriff aus main.cpp und die Kleinbuchstaben in der nm-Ausgabe.
+
+2.
+Laut nm liegen moduleCounter, var2, foo und foo2 in .bss (b/B), weil sie nicht oder mit 0 initialisiert sind. moduleValue, doSomethingStatic()::value, data und data2 liegen in .data (d/D), weil sie einen Startwert ungleich 0 haben. moduleConst, rodata, rodata2 und big_data_blob liegen in .rodata (r/R), weil sie const sind, einen zur Compile-Zeit bekannten Wert haben und Speicher benötigen.
+
+3.
+static hält interne Zustände eines Moduls privat. Andere Module können sie weder versehentlich verändern noch von ihnen abhängig werden, der Zugriff läuft nur über die im Header veröffentlichten Funktionen. Außerdem gibt es keine Namenskonflikte beim Linken, weil gleichnamige static-Variablen in verschiedenen Modulen unabhängig voneinander existieren.
+
 ---
 
 ## Extended (Bonus): Lernen durch gezielte Fehler

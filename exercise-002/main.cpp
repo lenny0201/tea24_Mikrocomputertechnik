@@ -3,6 +3,7 @@
 
 #include "module.h"
 
+
 auto main(int argc, char** argv) -> int
 {
     /**
@@ -29,6 +30,11 @@ auto main(int argc, char** argv) -> int
     doSomethingStatic();
     doSomethingStatic();
     doSomethingStatic();
+
+    printModuleStatics();
+    printModuleStatics();
+
+
 
     fmt::print("Value of foo {} address of foo {}\n", foo, fmt::ptr(&foo));
     fmt::print("Value of foo2 {} address of foo2 {}\n", foo2, fmt::ptr(&foo2));

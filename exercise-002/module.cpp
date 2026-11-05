@@ -2,6 +2,11 @@
 
 #include <fmt/format.h>
 
+static int moduleCounter;        // nicht initialisiert -> automatisch 0 -> .bss
+static int moduleValue = 123; 
+
+static const int moduleConst = 77; // initialisiert -> .data
+
 /* .bss Segment */
 int foo;
 int foo2 = 0;
@@ -42,7 +47,22 @@ int* doReturnAPtr()
 
 void doSomethingStatic()
 {
-    static int value = 56;
+    static int value = 56;      // statisch: einmal initialisiert, lebt bis Programmende
+    int localValue = 56;        // nicht-statisch: bei jedem Aufruf neu auf dem Stack
+
     value = value + 1;
-    fmt::print("doSomethingStatic, value {}\n", value);
+    localValue = localValue + 1;
+
+    fmt::print("doSomethingStatic, static value {}  address {}\n", value, fmt::ptr(&value));
+    fmt::print("doSomethingStatic, local  value {}  address {}\n", localValue, fmt::ptr(&localValue));
+}
+
+void printModuleStatics()
+{
+    moduleCounter = moduleCounter + 1;
+
+    fmt::print("moduleCounter {}  address {}\n", moduleCounter, fmt::ptr(&moduleCounter));
+    fmt::print("moduleValue   {}  address {}\n", moduleValue, fmt::ptr(&moduleValue));
+
+    fmt::print("moduleConst   {}  address {}\n", moduleConst, fmt::ptr(&moduleConst));
 }

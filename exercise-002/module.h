@@ -15,6 +15,8 @@ void doSomething(int value);
 
 void doSomethingPtr(int* ptr);
 
+void printModuleStatics();
+
 int* doReturnAPtr();
 
 void doSomethingStatic();
